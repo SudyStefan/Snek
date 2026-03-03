@@ -36,6 +36,7 @@ h1 {
 }
 
 #app {
+  display: flex;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -58,12 +59,14 @@ button {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
+  font-size: 2em;
+  font-weight: 400;
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+  margin-top: 5px
+
 }
 button:hover {
   border-color: #646cff;
@@ -81,6 +84,32 @@ button:focus-visible {
   gap: 1px; /* Optional: adds a small line between cells */
   background-color: #333;
   width: fit-content;
+}
+
+#info-board {
+  padding-left: 20px;
+  flex-direction: column; 
+}
+
+#game-title {
+  display: flex;
+  min-height: 30%;
+  align-items: center;
+  flex-direction: column;
+}
+
+#game-info {
+  display: flex;
+  flex-direction: column;
+  min-height: 50%;
+  max-height: 50%;
+}
+
+#game-buttons {
+  display: flex;
+  flex-direction: column;
+  min-height: 20%;
+  justify-content: end;
 }
 
 /* The base style for every single grid square */

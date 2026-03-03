@@ -9,7 +9,7 @@ export default class Renderer {
     this.initializeBoard(board, height, width);
   }
 
-  private initializeBoard(board: PointType[][], height: number, width: number) {
+  public initializeBoard(board: PointType[][], height: number, width: number) {
     for (let row = 0; row < height; row++) {
       for (let col = 0; col < width; col++) {
         const cell = document.createElement("div");
@@ -19,6 +19,11 @@ export default class Renderer {
         this.cells.push(cell); // Store reference for quick access
       }
     }
+  }
+
+  public clear() {
+    this.boardElement.innerHTML = '';
+    this.cells = [];
   }
 
   public renderChanges(changes: ChangeObject[]) {

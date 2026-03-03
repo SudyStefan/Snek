@@ -22,7 +22,6 @@ export default class GameBoard {
     };
 
     while (this.board[newApple.row][newApple.col] !== "EMPTY") {
-      console.log(newApple);
       newApple = {
         row: Math.floor(Math.random() * this.boardHeight),
         col: Math.floor(Math.random() * this.boardWidth)
@@ -70,12 +69,11 @@ export default class GameBoard {
     changeObjects.push(this.changeBoardPoint(this.snekHead, "HEAD")); //empty/apple > new head
 
     if (this.snekHead.row === this.apple.row && this.snekHead.col === this.apple.col) {
-      console.log("FEEDING");
+      this.snekLength += 1;
       changeObjects.push(this.generateNewApple()); //empty > new apple
     } else {
       changeObjects.push(this.changeBoardPoint(this.snekBody.shift()!, "EMPTY")); //last body > empty
     }
-    console.log(changeObjects);
     return {
       isGameOver: this.isCollision(),
       changeObjects: changeObjects,
@@ -89,7 +87,7 @@ export default class GameBoard {
     this.snekLength = snekLength;
     const centerRow = Math.round(this.boardHeight / 2);
 
-    console.log("Iitializing board...");
+    console.log("Initializing board...");
     for (let row = 0; row < this.boardHeight; row++) {
       this.board.push([]);
       for (let col = 0; col < this.boardWidth; col++) {
@@ -97,7 +95,7 @@ export default class GameBoard {
       }
     }
 
-    console.log("Iitializing snek...");
+    console.log("Initializing snek...");
     for (let i = 0; i < this.snekLength - 1; i++) {
       this.snekBody.push({ row: centerRow, col: i });
       this.changeBoardPoint(this.snekBody[i], "BODY");
