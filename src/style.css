@@ -1,0 +1,127 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+#app {
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.vanilla:hover {
+  filter: drop-shadow(0 0 2em #3178c6aa);
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+#game-board {
+  display: grid;
+  /* This creates a 20x20 grid of 20px squares */
+  grid-template-columns: repeat(10, 100px);
+  grid-template-rows: repeat(10, 100px);
+  gap: 1px; /* Optional: adds a small line between cells */
+  background-color: #333;
+  width: fit-content;
+}
+
+/* The base style for every single grid square */
+.cell {
+  width: 100px;
+  height: 100px;
+  background-color: #1a1a1a; /* Dark background */
+  border: 1px solid #222; /* Subtle grid lines */
+  box-sizing: border-box; /* Ensures border doesn't grow the div */
+}
+
+/* The Snake's Body */
+.body {
+  background-color: #4caf50; /* A nice forest green */
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2); /* Inset shadow for depth */
+  border-radius: 2px; /* Slightly rounded corners */
+}
+
+/* The Snake's Head (Crucial for gameplay!) */
+.head {
+  background-color: #8bc34a; /* A lighter, brighter green */
+  border-radius: 4px; /* More rounded than the body */
+  z-index: 10; /* Ensure head sits "on top" visually */
+}
+
+/* The Apple */
+.apple {
+  background-color: #f44336; /* Classic red */
+  border-radius: 50%; /* Makes the apple a circle */
+  box-shadow: 0 0 8px #f44336; /* "Glow" effect to make it stand out */
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
