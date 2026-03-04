@@ -18,6 +18,10 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = /* html */ `
       <div>
         <h1 id="interval"></h1>
       </div>
+      <div>
+        <h1 id="controls">Movement Options:<h1>
+        <h1 id="controls">WASD, Arrow Keys<h1>
+      </div>
     </div>
     <div id="game_buttons">
       <button id="start_button">Start Game</button>

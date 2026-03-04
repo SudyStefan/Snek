@@ -121,6 +121,9 @@ button:focus-visible {
 #interval {
   font-size: 25px;
 }
+#controls {
+  font-size: 25px
+}
 
 #game_buttons {
   display: flex;
