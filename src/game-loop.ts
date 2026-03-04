@@ -23,9 +23,7 @@ export default class GameLoop {
     this.latestUpdate = this.gameBoard.run(this.lastValidInput);
     this.interval = Math.max(50, this.interval - 2);
 
-    if (this.latestUpdate.isGameOver) {
-      this.running = false;
-    }
+    this.running = !this.latestUpdate.isGameOver;
   };
 
   private listenToInput = (event: KeyboardEvent): void => {

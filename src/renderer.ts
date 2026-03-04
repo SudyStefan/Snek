@@ -4,6 +4,8 @@ export default class Renderer {
   private boardElement: HTMLElement;
   private intervalElement: HTMLHeadingElement;
   private scoreElement: HTMLHeadingElement;
+  private cells: HTMLDivElement[][] = [];
+  private headElement!: HTMLDivElement;
 
   constructor(board: PointType[][], height: number, width: number) {
     this.boardElement = document.getElementById("game-board")!;
@@ -16,26 +18,34 @@ export default class Renderer {
 
   public initializeBoard(board: PointType[][], height: number, width: number) {
     for (let row = 0; row < height; row++) {
+      this.cells.push([]);
       for (let col = 0; col < width; col++) {
         const cell = document.createElement("div");
         cell.className = StyleMap[board[row][col]];
         cell.id = `cell-${row}-${col}`;
+
+        this.cells[row].push(cell);
         this.boardElement.appendChild(cell);
+        if (board[row][col] === "HEAD") {
+          this.headElement = cell;
+        }
       }
     }
   }
 
   public clear = (): void => {
+    this.cells = [];
     this.boardElement.innerHTML = "";
   };
 
   public renderChanges = (changes: ChangeObject[], facing: Direction): void => {
     changes.forEach((change) => {
-      const cell = document.getElementById(`cell-${change.point.row}-${change.point.col}`);
-      if (cell) {
-        cell.className = StyleMap[change.newType];
+      const cellToChange = this.cells[change.point.row][change.point.col];
+      if (cellToChange) {
+        cellToChange.className = StyleMap[change.newType];
         if (change.newType === "HEAD") {
-          cell.style.setProperty("--angle", RotationMap[facing]);
+          cellToChange.style.setProperty("--angle", RotationMap[facing]);
+          this.headElement = cellToChange;
         }
       }
     });
@@ -47,12 +57,9 @@ export default class Renderer {
   };
 
   public renderGameOver = (facing: Direction): void => {
-    const headItem = document.getElementsByClassName(StyleMap["HEAD"])[0] as HTMLElement;
-    if (headItem) {
-      headItem.style.setProperty("--angle", RotationMap[facing]);
-      headItem.style.setProperty("--eyes", "'x x'");
-      headItem.style.backgroundColor = "#9e9e9e";
-    }
+    this.headElement.style.setProperty("--angle", RotationMap[facing]);
+    this.headElement.style.setProperty("--eyes", "'x x'");
+    this.headElement.style.backgroundColor = "#9e9e9e";
 
     const bodyItems = Array.from(document.getElementsByClassName(StyleMap["BODY"])) as HTMLDivElement[];
     bodyItems.forEach((item) => (item.style.backgroundColor = "#9e9e9e"));

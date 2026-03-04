@@ -95,7 +95,7 @@ button:focus-visible {
   flex-direction: column;
   border-color: #888;
   border-style: solid;
-  border-width: 2px
+  border-width: 2px;
 }
 
 #snake_emoji {
@@ -132,27 +132,27 @@ button:focus-visible {
 .cell {
   width: 100px;
   height: 100px;
-  background-color: #1a1a1a; /* Dark background */
-  border: 1px solid #222; /* Subtle grid lines */
-  box-sizing: border-box; /* Ensures border doesn't grow the div */
+  background-color: #1a1a1a;
+  border: 1px solid #222;
+  box-sizing: border-box;
 }
 
 .tail {
-  background-color: #4caf50; /* A nice forest green */
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2); /* Inset shadow for depth */
-  border-radius: 15px 15px 5px 5px; /* Slightly rounded corners */
+  background-color: #4caf50;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 15px 15px 5px 5px;
 }
 
 .body {
-  background-color: #4caf50; /* A nice forest green */
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2); /* Inset shadow for depth */
-  border-radius: 5px; /* Slightly rounded corners */
+  background-color: #4caf50;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
 }
 
 .head {
-  background-color: #4caf50; /* A lighter, brighter green */
-  border-radius: 20px 20px 5px 5px; /* More rounded than the body */
-  z-index: 10; /* Ensure head sits "on top" visually */
+  background-color: #4caf50;
+  border-radius: 20px 20px 5px 5px;
+  z-index: 10;
   transform: rotate(var(--angle, 90deg));
 }
 
@@ -162,22 +162,38 @@ button:focus-visible {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  width: 8px; 
+  width: 8px;
   height: 30px;
   background-color: #ff5252;
   clip-path: polygon(0% 30%, 25% 0%, 50% 30%, 75% 0%, 100% 30%, 100% 100%, 0% 100%); /* forked tip */
   bottom: 95%;
   animation: snake-flick 3s infinite ease-in-out;
-
 }
 @keyframes snake-flick {
-  0%, 90% { transform: translateX(-50%) scaleY(0); opacity: 0; }
-  93% { transform: translateX(-50%) scaleY(1); opacity: 1; }
-  95% { transform: translateX(-50%) scaleY(0.6); opacity: 1; }
-  97% { transform: translateX(-50%) scaleY(1.2); opacity: 1; }
-  100% { transform: translateX(-50%) scaleY(0); opacity: 0; }
+  0%,
+  90% {
+    transform: translateX(-50%) scaleY(0);
+    opacity: 0;
+  }
+  93% {
+    transform: translateX(-50%) scaleY(1);
+    opacity: 1;
+  }
+  95% {
+    transform: translateX(-50%) scaleY(0.6);
+    opacity: 1;
+  }
+  97% {
+    transform: translateX(-50%) scaleY(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50%) scaleY(0);
+    opacity: 0;
+  }
 }
 
+/* eyes */
 .head::after {
   content: var(--eyes, "• •");
   display: block;
@@ -187,11 +203,10 @@ button:focus-visible {
   color: black;
 }
 
-
 .apple {
-  background-color: #f44336; /* Classic red */
-  border-radius: 20px; /* Makes the apple a circle */
-  box-shadow: 0 0 10px #f44336; /* "Glow" effect to make it stand out */
+  background-color: #f44336;
+  border-radius: 20px;
+  box-shadow: 0 0 10px #f44336;
 }
 
 @media (prefers-color-scheme: light) {

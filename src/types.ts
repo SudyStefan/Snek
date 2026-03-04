@@ -19,6 +19,13 @@ export type Direction = "NORTH" | "SOUTH" | "EAST" | "WEST";
 
 export type PointType = "EMPTY" | "BODY" | "APPLE" | "HEAD";
 
+export const OppositeMap: Record<Direction, Direction> = {
+  NORTH: "SOUTH",
+  SOUTH: "NORTH",
+  EAST: "WEST",
+  WEST: "EAST"
+};
+
 export const CharacterMap: Record<string, Direction> = {
   arrowup: "NORTH",
   arrowdown: "SOUTH",

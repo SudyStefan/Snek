@@ -1,4 +1,12 @@
-import { type Point, type Direction, type PointType, type ChangeObject, type GameUpdate, CharacterMap } from "./types";
+import {
+  type Point,
+  type Direction,
+  type PointType,
+  type ChangeObject,
+  type GameUpdate,
+  CharacterMap,
+  OppositeMap
+} from "./types";
 
 export default class GameBoard {
   private boardHeight: number;
@@ -32,20 +40,21 @@ export default class GameBoard {
     return this.changeBoardPoint(newApple, "APPLE");
   };
 
-  private isCollision = (): boolean => {
+  private isBodyCollision = (): boolean => {
     return this.snekBody.some((body: Point) => body.row === this.snekHead.row && body.col === this.snekHead.col);
   };
 
+  private isOutOfBounds = (): boolean => {
+    return (
+      this.snekHead.row < 0 ||
+      this.snekHead.row >= this.boardHeight ||
+      this.snekHead.col < 0 ||
+      this.snekHead.col >= this.boardWidth
+    );
+  };
+
   private moveSnek = (newDirection: Direction): GameUpdate => {
-    const opposites: Record<Direction, Direction> = {
-      NORTH: "SOUTH",
-      SOUTH: "NORTH",
-      EAST: "WEST",
-      WEST: "EAST"
-    };
-    if (newDirection !== opposites[this.direction]) {
-      this.direction = newDirection;
-    }
+    newDirection !== OppositeMap[this.direction] ? (this.direction = newDirection) : this.direction;
     const changeObjects: ChangeObject[] = [];
 
     const newBody: Point = { row: this.snekHead.row, col: this.snekHead.col };
@@ -65,13 +74,7 @@ export default class GameBoard {
         this.snekHead.col--;
         break;
     }
-    if (
-      this.snekHead.row < 0 ||
-      this.snekHead.row >= this.boardHeight ||
-      this.snekHead.col < 0 ||
-      this.snekHead.col >= this.boardWidth ||
-      this.isCollision()
-    ) {
+    if (this.isOutOfBounds() || this.isBodyCollision()) {
       return {
         isGameOver: true,
         changeObjects: [],
@@ -123,10 +126,6 @@ export default class GameBoard {
   };
 
   public run = (event: KeyboardEvent | null): GameUpdate => {
-    if (event) {
-      const inputKey: string = event.key.toLowerCase();
-      return this.moveSnek(CharacterMap[inputKey]);
-    }
-    return this.moveSnek(this.direction);
+    return event ? this.moveSnek(CharacterMap[event.key.toLowerCase()]) : this.moveSnek(this.direction);
   };
 }
