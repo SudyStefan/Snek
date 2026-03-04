@@ -33,6 +33,7 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  margin: 0;
 }
 
 #app {
@@ -58,15 +59,14 @@ h1 {
 button {
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
+  padding: 0.6em 0.5em;
   font-size: 2em;
   font-weight: 400;
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
-  margin-top: 5px
-
+  margin-top: 5px;
 }
 button:hover {
   border-color: #646cff;
@@ -83,36 +83,52 @@ button:focus-visible {
   grid-template-rows: repeat(10, 100px);
   gap: 1px; /* Optional: adds a small line between cells */
   background-color: #333;
+  border-color: #888;
+  border-style: solid;
+  border-width: 2px;
   width: fit-content;
 }
 
-#info-board {
+#info_board {
   padding-left: 20px;
-  flex-direction: column; 
-}
-
-#game-title {
-  display: flex;
-  min-height: 30%;
-  align-items: center;
+  padding-right: 20px;
   flex-direction: column;
+  border-color: #888;
+  border-style: solid;
+  border-width: 2px
 }
 
-#game-info {
+#snake_emoji {
   display: flex;
+  min-height: 20%;
+  align-items: center;
+  justify-content: center;
+  font-size: 125px;
+}
+
+#game_info {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
   flex-direction: column;
   min-height: 50%;
   max-height: 50%;
 }
 
-#game-buttons {
-  display: flex;
-  flex-direction: column;
-  min-height: 20%;
-  justify-content: end;
+#message {
+  font-size: 25px;
+}
+#interval {
+  font-size: 25px;
 }
 
-/* The base style for every single grid square */
+#game_buttons {
+  display: flex;
+  flex-direction: column;
+  min-height: 30%;
+  justify-content: center;
+}
+
 .cell {
   width: 100px;
   height: 100px;
@@ -121,25 +137,61 @@ button:focus-visible {
   box-sizing: border-box; /* Ensures border doesn't grow the div */
 }
 
-/* The Snake's Body */
+.tail {
+  background-color: #4caf50; /* A nice forest green */
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2); /* Inset shadow for depth */
+  border-radius: 15px 15px 5px 5px; /* Slightly rounded corners */
+}
+
 .body {
   background-color: #4caf50; /* A nice forest green */
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2); /* Inset shadow for depth */
-  border-radius: 2px; /* Slightly rounded corners */
+  border-radius: 5px; /* Slightly rounded corners */
 }
 
-/* The Snake's Head (Crucial for gameplay!) */
 .head {
-  background-color: #8bc34a; /* A lighter, brighter green */
-  border-radius: 4px; /* More rounded than the body */
+  background-color: #4caf50; /* A lighter, brighter green */
+  border-radius: 20px 20px 5px 5px; /* More rounded than the body */
   z-index: 10; /* Ensure head sits "on top" visually */
+  transform: rotate(var(--angle, 90deg));
 }
 
-/* The Apple */
+/* tongue for idle animation */
+.head::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px; 
+  height: 30px;
+  background-color: #ff5252;
+  clip-path: polygon(0% 30%, 25% 0%, 50% 30%, 75% 0%, 100% 30%, 100% 100%, 0% 100%); /* forked tip */
+  bottom: 95%;
+  animation: snake-flick 3s infinite ease-in-out;
+
+}
+@keyframes snake-flick {
+  0%, 90% { transform: translateX(-50%) scaleY(0); opacity: 0; }
+  93% { transform: translateX(-50%) scaleY(1); opacity: 1; }
+  95% { transform: translateX(-50%) scaleY(0.6); opacity: 1; }
+  97% { transform: translateX(-50%) scaleY(1.2); opacity: 1; }
+  100% { transform: translateX(-50%) scaleY(0); opacity: 0; }
+}
+
+.head::after {
+  content: var(--eyes, "• •");
+  display: block;
+  line-height: 0;
+  padding-top: 20px;
+  font-size: 70px;
+  color: black;
+}
+
+
 .apple {
   background-color: #f44336; /* Classic red */
-  border-radius: 50%; /* Makes the apple a circle */
-  box-shadow: 0 0 8px #f44336; /* "Glow" effect to make it stand out */
+  border-radius: 20px; /* Makes the apple a circle */
+  box-shadow: 0 0 10px #f44336; /* "Glow" effect to make it stand out */
 }
 
 @media (prefers-color-scheme: light) {

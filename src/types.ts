@@ -11,6 +11,7 @@ export interface ChangeObject {
 export interface GameUpdate {
   isGameOver: boolean;
   changeObjects: ChangeObject[];
+  facing: Direction;
   score: number;
 }
 
@@ -34,4 +35,11 @@ export const StyleMap: Record<PointType, string> = {
   BODY: "cell body",
   APPLE: "cell apple",
   HEAD: "cell head"
+};
+
+export const RotationMap: Record<Direction, string> = {
+  NORTH: "0deg",
+  EAST: "90deg",
+  SOUTH: "180deg",
+  WEST: "270deg"
 };

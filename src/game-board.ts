@@ -65,18 +65,33 @@ export default class GameBoard {
         this.snekHead.col--;
         break;
     }
+    if (
+      this.snekHead.row < 0 ||
+      this.snekHead.row >= this.boardHeight ||
+      this.snekHead.col < 0 ||
+      this.snekHead.col >= this.boardWidth ||
+      this.isCollision()
+    ) {
+      return {
+        isGameOver: true,
+        changeObjects: [],
+        facing: this.direction,
+        score: this.snekLength
+      };
+    }
 
     changeObjects.push(this.changeBoardPoint(this.snekHead, "HEAD")); //empty/apple > new head
-
     if (this.snekHead.row === this.apple.row && this.snekHead.col === this.apple.col) {
       this.snekLength += 1;
       changeObjects.push(this.generateNewApple()); //empty > new apple
     } else {
       changeObjects.push(this.changeBoardPoint(this.snekBody.shift()!, "EMPTY")); //last body > empty
     }
+
     return {
-      isGameOver: this.isCollision(),
+      isGameOver: false,
       changeObjects: changeObjects,
+      facing: this.direction,
       score: this.snekLength
     };
   };
@@ -87,7 +102,6 @@ export default class GameBoard {
     this.snekLength = snekLength;
     const centerRow = Math.round(this.boardHeight / 2);
 
-    console.log("Initializing board...");
     for (let row = 0; row < this.boardHeight; row++) {
       this.board.push([]);
       for (let col = 0; col < this.boardWidth; col++) {
@@ -95,12 +109,11 @@ export default class GameBoard {
       }
     }
 
-    console.log("Initializing snek...");
     for (let i = 0; i < this.snekLength - 1; i++) {
-      this.snekBody.push({ row: centerRow, col: i });
+      this.snekBody.push({ row: centerRow, col: i + 1 });
       this.changeBoardPoint(this.snekBody[i], "BODY");
     }
-    this.snekHead = { row: centerRow, col: this.snekLength - 1 };
+    this.snekHead = { row: centerRow, col: this.snekLength };
     this.changeBoardPoint(this.snekHead, "HEAD");
     this.apple = this.generateNewApple().point;
   }
